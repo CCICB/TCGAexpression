@@ -17,7 +17,7 @@ status](https://www.r-pkg.org/badges/version/TCGAexpression)](https://CRAN.R-pro
 
 TCGAexpression provides easy access to TCGA expression datasets in R.
 Optimised for easy visualisation and analysis
-[selkamand/express](https://github.com/selkamand/express)
+with[express](https://github.com/selkamand/express)
 
 ## Installation
 
@@ -30,7 +30,7 @@ remotes::install_github('CCICB/TCGAexpression')
 
 ## Quick Start
 
-### High Memory System (e.g. A HPC)
+### High Memory Systems
 
 If you have sufficient memory to read very large dataframes into memory:
 
@@ -47,9 +47,9 @@ tcga_expression_load(cohorts="GBM")
 tcga_expression_load(cohorts="GBM", c('TP53', 'PTEN'))
 ```
 
-### Database Approach
+### Memory Efficient Database Approach
 
-For all devices but particularly low-memory devices, it will be faster
+For all devices, but particularly low-memory devices, it will be faster
 to download this database as an sqlite db (consider Parquet files with
 arrow interface as this will be easier to store and download from
 github) - Bioconductor experimenthub might allow storage of these as
