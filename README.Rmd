@@ -15,42 +15,95 @@ knitr::opts_chunk$set(
 
 # TCGAexpression
 
+> :warning: **Warning:** This package is in early development and not yet ready for use
+
 <!-- badges: start -->
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![CRAN status](https://www.r-pkg.org/badges/version/TCGAexpression)](https://CRAN.R-project.org/package=TCGAexpression)
+
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental) [![CRAN status](https://www.r-pkg.org/badges/version/TCGAexpression)](https://CRAN.R-project.org/package=TCGAexpression)
+
 <!-- badges: end -->
 
-The goal of TCGAexpression is to ...
+TCGAexpression provides easy access to TCGA expression datasets in R. Optimised for easy visualisation and analysis [selkamand/express](https://github.com/selkamand/express)
 
 ## Installation
 
 You can install the development version of TCGAexpression like so:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+# install.packages("remotes")
+remotes::install_github('CCICB/TCGAexpression')
 ```
 
-## Example
+## Quick Start
 
-This is a basic example which shows you how to solve a common problem:
+### High Memory System (e.g. A HPC)
 
-```{r example}
+If you have sufficient memory to read very large dataframes into memory:
+
+```{r eval=FALSE}
 library(TCGAexpression)
-## basic example code
+
+# See available datasets
+tcga_expression_available()
+
+# Load available datasets into memory
+tcga_expression_load(cohorts="GBM")
+
+# Load just specific genes memory
+tcga_expression_load(cohorts="GBM", c('TP53', 'PTEN'))
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+### Database Approach
 
-```{r cars}
-summary(cars)
+For all devices but particularly low-memory devices, it will be faster to download this database as an sqlite db (consider Parquet files with arrow interface as this will be easier to store and download from github) - Bioconductor experimenthub might allow storage of these as indexed files as a github alternative
+
+```{r eval=FALSE}
+
+# Download 
+tcga_expression_download(cohors = "GBM") #try cohorts = "Everything" to download the full SQLITE db
+
+# Create a Connection 
+tcga_expression_connect()
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/v1/examples>.
+## Finding Expression Datasets
 
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
++--------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Source                                                                         | Description                                                                                                                                                                                                                                                       |
++================================================================================+===================================================================================================================================================================================================================================================================+
+| [TCGA PanCanAtlas](https://gdc.cancer.gov/about-data/publications/pancanatlas) | Contains gene expression (and lots of other modalities) for 33 tumor types profiled by TCGA                                                                                                                                                                       |
+|                                                                                |                                                                                                                                                                                                                                                                   |
+|                                                                                | File: EBPlusPlusAdjustPANCAN_IlluminaHiSeq_RNASeqV2.geneExp.tsv                                                                                                                                                                                                   |
++--------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| [cBioPortal](https://www.cbioportal.org/datasets)                              | Many datasets including TCGA cohorts                                                                                                                                                                                                                              |
++--------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| [openPBTA](https://github.com/d3b-center/OpenPedCan-analysis)                  | Open paediatric brain tumour atlas includes over 1,074 pediatric brain tumors and 22 patient-derived cell lines. This data can be downloaded from a public [cavatica](https://cavatica.sbgenomics.com/u/cavatica/openpbta) project. Note genomic and histological |
+|                                                                                |                                                                                                                                                                                                                                                                   |
+|                                                                                | File: pbta-gene-expression-rsem-tpm.polya.rds                                                                                                                                                                                                                     |
+|                                                                                |                                                                                                                                                                                                                                                                   |
+|                                                                                | OR if you want the stranded data                                                                                                                                                                                                                                  |
+|                                                                                |                                                                                                                                                                                                                                                                   |
+|                                                                                | File: pbta-gene-expression-rsem-tpm.stranded.rds                                                                                                                                                                                                                  |
+|                                                                                |                                                                                                                                                                                                                                                                   |
+|                                                                                | See data-files-description.md for details                                                                                                                                                                                                                         |
++--------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| [OpenPedCan](https://cavatica.sbgenomics.com/u/cavatica/opentarget)            | Children’s Hospital of Philadelphia is an open analysis effort that harmonizes pediatric cancer data from multiple sources:                                                                                                                                       |
+|                                                                                |                                                                                                                                                                                                                                                                   |
+|                                                                                | -   TARGET                                                                                                                                                                                                                                                        |
+|                                                                                |                                                                                                                                                                                                                                                                   |
+|                                                                                | -   Kids First Neuroblastoma                                                                                                                                                                                                                                      |
+|                                                                                |                                                                                                                                                                                                                                                                   |
+|                                                                                | -   OpenPBTA                                                                                                                                                                                                                                                      |
+|                                                                                |                                                                                                                                                                                                                                                                   |
+|                                                                                | -   GTEx RNA-Seq                                                                                                                                                                                                                                                  |
+|                                                                                |                                                                                                                                                                                                                                                                   |
+|                                                                                | -   TCGA RNA-Seq                                                                                                                                                                                                                                                  |
+|                                                                                |                                                                                                                                                                                                                                                                   |
+|                                                                                | -   CHOP DGD Targeted DNA and Fusion Panel Sequencing                                                                                                                                                                                                             |
++--------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| [UCSCtreehouse](https://treehousegenomics.soe.ucsc.edu/public-data/#datasets)  | Contains expression datasets describing both child and adult patient cancer tumors.                                                                                                                                                                               |
+|                                                                                |                                                                                                                                                                                                                                                                   |
+|                                                                                | See the Newest Tumor Compendium: v11 (polyA expression data)                                                                                                                                                                                                      |
+|                                                                                |                                                                                                                                                                                                                                                                   |
+|                                                                                | File: gene expression RNAseq - RSEM log2(TPM + 1) normalized                                                                                                                                                                                                      |
++--------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
