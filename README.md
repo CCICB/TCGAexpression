@@ -16,8 +16,8 @@ status](https://www.r-pkg.org/badges/version/TCGAexpression)](https://CRAN.R-pro
 <!-- badges: end -->
 
 TCGAexpression provides easy access to TCGA expression datasets in R.
-Optimised for easy visualisation and analysis
-with[express](https://github.com/selkamand/express)
+Optimised for easy visualisation and analysis with
+[express](https://github.com/selkamand/express)
 
 ## Installation
 
@@ -125,6 +125,11 @@ href="https://treehousegenomics.soe.ucsc.edu/public-data/#datasets">UCSCtreehous
 patient cancer tumors.</p>
 <p>See the Newest Tumor Compendium: v11 (polyA expression data)</p>
 <p>File: gene expression RNAseq - RSEM log2(TPM + 1) normalized</p></td>
+</tr>
+<tr class="even">
+<td><a href="https://xenabrowser.net/datapages/">XENA datasets</a></td>
+<td>Contains hundreds of cohorts TCGA, PCAWG datasets including
+methylation, rnaseq, atac-seq, wgs data. (includes treehouse data)</td>
 </tr>
 </tbody>
 </table>

@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: end -->
 
-TCGAexpression provides easy access to TCGA expression datasets in R. Optimised for easy visualisation and analysis with[ express](https://github.com/selkamand/express)
+TCGAexpression provides easy access to TCGA expression datasets in R. Optimised for easy visualisation and analysis with [express](https://github.com/selkamand/express)
 
 ## Installation
 
@@ -106,4 +106,6 @@ tcga_expression_connect()
 |                                                                                | See the Newest Tumor Compendium: v11 (polyA expression data)                                                                                                                                                                                                      |
 |                                                                                |                                                                                                                                                                                                                                                                   |
 |                                                                                | File: gene expression RNAseq - RSEM log2(TPM + 1) normalized                                                                                                                                                                                                      |
++--------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| [XENA datasets](https://xenabrowser.net/datapages/)                            | Contains hundreds of cohorts TCGA, PCAWG datasets including methylation, rnaseq, atac-seq, wgs data. (includes treehouse data)                                                                                                                                    |
 +--------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
